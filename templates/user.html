@@ -1,41 +1,440 @@
 <!doctype html>
 <html lang="ko">
-    <head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="../static/wLXo0FzD.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>mypage | music-diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        * {
+            list-style:none;
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+        .wrap{
+            width:100%;
+        }
+        .wrap > button{
+            position:absolute;
+            top:0px;
+            right:0px;
+            z-index: 3;
+            background:transparent;
+            color:white;
+            border:none;
+        }
+        .wrap > button:hover{
+            color:white;
+            border:1px solid white;
+        }
+        .nav{
+            margin:0 auto;
+            color:white;
+            width:100%;
+            height:250px;
+            background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("https://cdn.pixabay.com/photo/2017/08/06/12/54/headphones-2592263_960_720.jpg");
+            background-position: center;
+            background-size: cover;
+            position:relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h3{
+            display:block;
+            font-size:22px;
+        }
+        h4{
+            display:block;
+            font-size:16px;
+        }
+        .nav_bar button{
+            width:30px;
+            height:30px;
+            margin-top:20px;
+            margin-left:100px;
+            box-shadow: none;
+            border:none;
+            background: transparent;
+            text-decoration: none;
+            cursor: pointer;
+            transform:scale(3,3);
+        }
+        .nav_bar button:hover{
+            transform:scale(3.2,3.2);
+        }
+        .nav_bar button span{
+        }
+        .nav > h3{
+            margin-top:20px;
+            margin-bottom:20px;
+        }
+        #postbtn{
+            color:white;
+            background: rgba(233,30,99,0.7);
+            border:1px solid pink;
+            border-radius: 5px;
+       }
+        #postbtn:hover{
+            border:2px solid pink;
+            box-sizing: border-box;
+       }
+         #canclebtn{
+            background:white;
+            color: rgba(233,30,99,0.7);
+            border:1px solid rgba(233,30,99,0.7);
+       }
+         #canclebtn:hover{
+             border:2px solid pink;
+             box-sizing: border-box;
+       }
+        .userbtns{
+            display:flex;
+            flex-direction: row;
+            align-items:center;
+            justify-content: center;
+         }
+        .writing{
+            margin-top:30px;
+            width: 160px;
+            height: 40px;
+            background-color: transparent;
+            color: white;
+            border:none;
+            font-family: inherit;
+        }
+        .listing{
+            margin-top:30px;
+            width: 160px;
+            height: 40px;
+            background-color: transparent;
+            color: white;
+            border:none;
+            font-family: inherit;
+        }
 
-        <!-- Webpage Title -->
-        <title>{{ user_info.name }} | SWEETER</title>
+        .writing:hover{
+            font-size:18px;
+        }
+        .listing:hover{
+            font-size:18px;
+        }
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        .mycards {
+            margin: 20px auto 0px auto;
+            width: 95%;
+            max-width: 1200px;
+        }
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
+            position:absolute;
+            top:20%;
+            left:50%;
+            transform:translate(-50%,50%);
+        }
+        .logout{
+            position:absolute;
+            top:10px;
+            right:10px;
+            width:24px;
+            height:24px;
+            z-index:5;
+            cursor:pointer;
+        }
+        .mybtns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .mybtns > button {
+            margin-right: 10px;
+        }
+        .writebtn{
+            position:fixed;
+            bottom:50px;
+            left:50%;
+            transform: translateX(-50%);
+            color:white;
+            background: rgba(233,30,99,0.7);
+            width:150px;
+            height:40px;
+            border:1px solid pink;
+            border-radius: 25px;
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+        .writebtn:hover{
+            border:2px solid rgba(233,30,99,0.7);
+            color:rgba(233,30,99,0.7);
+            background:rgba(255,255,255,0.7);
+        }
+        .editbtn{
+            margin-top:10px;
+            background:transparent;
+            border:none;
+            border-top:1px solid lightgray;
+            width:100%;
+            font-family: inherit;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+        .editbtn:hover{
+            background:lightpink;
+            color:white;
+            border:1px solid pink;
+        }
 
-        <!-- Bulma CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-        <!-- Font Awesome CSS -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-        <!-- JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-        <link href='../static/mystyle.css' rel="stylesheet">
-        <script>
-            function sign_out() {
-                $.removeCookie('mytoken', {path: '/'});
-                alert('로그아웃!')
-                window.location.href = "/login"
+    </style>
+    <script>
+        {#포스팅 함수#}
+        function posting() {
+            let url = $('#url').val()
+            let comment = $('#comment').val()
+            let cate = $('#cate').val()
+            $.ajax({
+                type: 'POST',
+                url: '/music',
+                data: {url_give: url, comment_give: comment, cate_give: cate},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+        {#리스팅 함수#}
+        function my_list() {
+            $(document).ready(function () {
+                listing("{{ user_info.username }}")
+            })
+        }
+        function listing(username) {
+            close_box()
+            $('#cards-box').empty()
+            $.ajax({
+                type: 'GET',
+                url: `/music?username_give=${username}`,
+                data: {},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        let rows = response['music_list']
+                        for (let i = 0; i < rows.length; i++) {
+                            let id = rows[i]['_id']
+                            let title = rows[i]['title']
+                            let comment = rows[i]['comment']
+                            let view = rows[i]['view']
+                            let cate = rows[i]['cate']
+                            let emoji = ''
+                            if (cate == '희') {
+                                emoji = '😍'
+                            } else if (cate == '노') {
+                                emoji = '😡'
+                            } else if (cate == '애') {
+                                emoji = '😭'
+                            } else {
+                                emoji = '😝'
+                            }
+                            let embed = rows[i]['embed']
+                            let temp_html = `<div class="col">
+                                            <div class="card h-100">
+                                             <iframe width="100%"  src="${embed}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                     <div class="card-body">
+                                                         <h5 class="card-title">${title}</h5>
+                                                         <p><span>${view}</span><span>view</span></p>
+                                                         <p>${emoji}</p>
+                                                         <p class="mycomment">${comment}</p>
+                                                         <button class ="editbtn" onclick="edit()">수정하기</button>
+
+                                                    </div>
+                                             </div>`
+                            $('#cards-box').append(temp_html)
+                        }
+
+                    }
+                }
+            })
+        }
+        {#모달 호출 함수#}
+        function edit(){
+            $("#modal-edit").addClass("is-active")
+        }
+        {# 포스트 입력하기 오픈 #}
+        function open_box() {
+            $('#post-box').show()
+            $('#cards-box').empty()
+        }
+        {# 포스트 입력하기 가리기 #}
+        function close_box() {
+            $('#post-box').hide()
+        }
+        {# 로그아웃 #}
+        function logout() {
+            alert('로그아웃')
+            window.location.href = "/"
+            $.removeCookie('mytoken', {path: '/'});
+        }
+        {#삭제하기#}
+        {#function delete_post(id){#}
+        {#    alert('삭제하시겠습니까?')#}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {#        url: 'music/delete',#}
+        {#        data: {id_give:id},#}
+        {#        success: function (response) {#}
+        {#            if (response["result"] == "success"){#}
+        {#            window.location.reload();#}
+        {#            }#}
+        {#        }#}
+        {#    })#}
+        {#
+
+            {#수정하기 함수#}
+            function update_profile() {
+                let url = $('#re_url').val()
+                let cate = $('#re_cate').val()
+                let comment = $("#re_comment").val()
+                let form_data = new FormData()
+                form_data.append("url_give", url)
+                form_data.append("cate_give", cate)
+                form_data.append("comment_give", comment)
+                console.log(name, url, cate, comment)
+                $.ajax({
+                    type: "POST",
+                    url: "/update_music",
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert(response["msg"])
+                            window.location.reload()
+                        }
+                    }
+                })
             }
-        </script>
 
-    </head>
-    <body>
-    <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <img src="../static/logo.png">
-                <strong class="is-sparta"
-                        style="font-family: 'Stylish', sans-serif;font-size: larger;">SWEETER</strong>
-            </a>
+
+
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="nav">
+        <img src="../static/logout.png" class="logout" id="sign_out" onclick="logout()">
+        <a class="image is-96x96" href="#">
+            <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real)}}">
+        </a>
+        <p class="place">
+            <strong>{{ user_info.profile_name }}</strong>
+            <small>@{{ user_info.username }}</small>
+            님
+        </p>
+        <div class="userbtns">
+            <button onclick="open_box()" class="writing">&nbsp&nbsp;일기 쓰기<span class="write_emoji"> ✏️</span></button>
+            <button onclick="my_list()" class="listing">&nbsp;일기 보기📖</button>
         </div>
-    </nav>
-    </body>
+    </div>
+        </section>
+        </div>
+        <div class="background"></div>
+        <div class="mypost" id="post-box">
+            <div class="form-floating mb-3">
+                <input id="url" type="email" class="form-control" placeholder="name@example.com">
+                <label>노래url</label>
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">감정</label>
+                <select class="form-select" id="cate">
+                    <option selected>-- 선택하기 --</option>
+                    <option value="희">😀</option>
+                    <option value="노">😡</option>
+                    <option value="애">😭</option>
+                    <option value="락">😝</option>
+                </select>
+            </div>
+            <div class="form-floating">
+                <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
+                <label for="floatingTextarea2">코멘트</label>
+            </div>
+            <div class="mybtns">
+                <button onclick="posting()" type="button" class="btn btn-dark" id="postbtn">기록하기</button>
+                <button onclick="close_box()" type="button" class="btn btn-outline-dark" id="canclebtn">닫기</button>
+            </div>
+        </div>
+        <div class="mycards">
+            <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modal-edit">
+        <div class="modal-background" onclick='$("#modal-edit").removeClass("is-active")'></div>
+        <div class="modal-content">
+            <div class="box">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="field">
+                            <label class="label" for="input-name">수정 url</label>
+                            <p class="control">
+                                <input id="re_url" class="input"
+                                       placeholder="">
+                            </p>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">감정</label>
+                            <select class="form-select" id="re_cate">
+                                <option selected>-- 선택하기 --</option>
+                                <option value="희">😀</option>
+                                <option value="노">😡</option>
+                                <option value="애">😭</option>
+                                <option value="락">😝</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="textarea-about">일기 수정</label>
+
+                            <p class="control">
+
+                        <textarea id="re_comment" class="textarea"
+                                  placeholder="">{{ user_info.profile_info }}</textarea>
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+
+                            </div>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <a class="button is-sparta" onclick="update_profile()">업데이트</a>
+                                </div>
+                                <div class="level-item">
+                                    <a class="button is-sparta is-outlined"
+                                       onclick='$("#modal-edit").removeClass("is-active")'>취소</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"
+                onclick='$("#modal-edit").removeClass("is-active")'></button>
+    </div>
+</div>
+<button onclick="window.location.href='/'" class="writebtn">전체 일기 구경하기</button>
+</body>
+
 </html>
+
