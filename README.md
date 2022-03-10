@@ -6,3 +6,4 @@ http://ddangggong.shop/
 ## 유튜브 시연 영상
 https://youtu.be/oWHfuf2kr4U
 ## 와이어 프레임
+![KakaoTalk_20220307_174248502](https://user-images.githubusercontent.com/61370487/157640774-5ce07711-da69-404c-ab48-5e1e12b9813f.jpg)
